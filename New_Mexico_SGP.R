@@ -21,10 +21,10 @@ SGPstateData[['NM']][['SGP_Configuration']] <- NULL
 
 ###  Load configs
 
-source("SGP_CONFIG/2018_2019/ELA.R")
+source("SGP_CONFIG/2018_2019/ELA_SS.R")
 source("SGP_CONFIG/2018_2019/READING_ISTAT.R")
 
-New_Mexico.config <- c(ELA.2018_2019.config, READING_ISTAT.2018_2019.config)
+New_Mexico.config <- c(ELA_SS.2018_2019.config, READING_ISTAT.2018_2019.config)
 
 
 ### abcSGP
