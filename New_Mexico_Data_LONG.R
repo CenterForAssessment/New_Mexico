@@ -21,9 +21,9 @@ setnames(New_Mexico_Data_LONG, c("ID", "YEAR", "DISTRICT_NUMBER", "SCHOOL_NUMBER
 New_Mexico_Data_LONG[,YEAR:=as.factor(YEAR)]
 setattr(New_Mexico_Data_LONG$YEAR, "levels", c("2016_2017", "2017_2018", "2018_2019"))
 New_Mexico_Data_LONG[,YEAR:=as.character(YEAR)]
-New_Mexico_Data_LONG[TEST_NAME=="ISTAT" & TEST_WINDOW=="Fall", YEAR:=paste0(YEAR, ".FALL")]
-New_Mexico_Data_LONG[TEST_NAME=="ISTAT" & TEST_WINDOW=="Winter", YEAR:=paste0(YEAR, ".WINTER")]
-New_Mexico_Data_LONG[TEST_NAME=="ISTAT" & TEST_WINDOW=="Spring", YEAR:=paste0(YEAR, ".SPRING")]
+New_Mexico_Data_LONG[TEST_NAME=="ISTAT" & TEST_WINDOW=="Fall", YEAR:=paste0(YEAR, ".1")]
+New_Mexico_Data_LONG[TEST_NAME=="ISTAT" & TEST_WINDOW=="Winter", YEAR:=paste0(YEAR, ".2")]
+New_Mexico_Data_LONG[TEST_NAME=="ISTAT" & TEST_WINDOW=="Spring", YEAR:=paste0(YEAR, ".3")]
 
 
 New_Mexico_Data_LONG[,DISTRICT_NUMBER:=as.numeric(DISTRICT_NUMBER)]
