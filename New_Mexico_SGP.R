@@ -45,4 +45,4 @@ New_Mexico_SGP <- abcSGP(
 
 #  Save the SGP Object as an .Rdata file:
 
-#save(New_Mexico_SGP, file="Data/New_Mexico_SGP.Rdata")
+save(New_Mexico_SGP, file="Data/New_Mexico_SGP.Rdata")

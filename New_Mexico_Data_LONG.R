@@ -23,13 +23,14 @@ setattr(New_Mexico_Data_LONG$YEAR, "levels", c("2016_2017", "2017_2018", "2018_2
 New_Mexico_Data_LONG[,YEAR:=as.character(YEAR)]
 New_Mexico_Data_LONG[TEST_NAME=="ISTAT" & TEST_WINDOW=="Fall", YEAR:=paste0(YEAR, ".1")]
 New_Mexico_Data_LONG[TEST_NAME=="ISTAT" & TEST_WINDOW=="Winter", YEAR:=paste0(YEAR, ".2")]
-New_Mexico_Data_LONG[TEST_NAME=="ISTAT" & TEST_WINDOW=="Spring", YEAR:=paste0(YEAR, ".3")]
+#New_Mexico_Data_LONG[TEST_NAME=="ISTAT" & TEST_WINDOW=="Spring", YEAR:=paste0(YEAR, ".3")]
 
 
 New_Mexico_Data_LONG[,DISTRICT_NUMBER:=as.numeric(DISTRICT_NUMBER)]
 New_Mexico_Data_LONG[,SCHOOL_NUMBER:=as.numeric(SCHOOL_NUMBER)]
 
-New_Mexico_Data_LONG[CONTENT_AREA=="READ" & TEST_NAME=="ISTAT", CONTENT_AREA:="READING_ISTAT"]
+New_Mexico_Data_LONG[CONTENT_AREA=="READ" & TEST_NAME=="ISTAT" & TEST_LANGUAGE=="E", CONTENT_AREA:="READING_ISTAT"]
+New_Mexico_Data_LONG[CONTENT_AREA=="READ" & TEST_NAME=="ISTAT" & TEST_LANGUAGE=="S", CONTENT_AREA:="READING_ISTAT_SPANISH"]
 New_Mexico_Data_LONG[CONTENT_AREA=="READ" & TEST_NAME=="TAMELA SPRING", CONTENT_AREA:="ELA_SS"]
 
 New_Mexico_Data_LONG[,SCALE_SCORE:=as.numeric(SCALE_SCORE)]
