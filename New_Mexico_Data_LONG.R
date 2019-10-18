@@ -11,11 +11,13 @@ require(data.table)
 
 ### Load data
 
-New_Mexico_Data_LONG <- fread("Data/Base_Files/Istation_SGP.csv", colClasses=rep("character", 10))
+#New_Mexico_Data_LONG <- fread("Data/Base_Files/Istation_SGP.csv", colClasses=rep("character", 10))
+New_Mexico_Data_LONG <- fread("Data/Base_Files/Istation_SGP_V3.csv", colClasses=rep("character", 11))
 
 
 ### Tidy up data
 
+New_Mexico_Data_LONG[,TestnameL:=NULL]
 setnames(New_Mexico_Data_LONG, c("ID", "YEAR", "DISTRICT_NUMBER", "SCHOOL_NUMBER", "TEST_NAME", "CONTENT_AREA", "TEST_LANGUAGE", "TEST_WINDOW", "GRADE", "SCALE_SCORE"))
 
 New_Mexico_Data_LONG[,YEAR:=as.factor(YEAR)]
