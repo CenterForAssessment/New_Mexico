@@ -17,13 +17,15 @@ parallel.config <- list(BACKEND="PARALLEL", WORKERS=list(PERCENTILES=4, BASELINE
 ### Run abcSGP
 New_Mexico_SGP <- abcSGP(
         sgp_object = New_Mexico_Data_LONG,
-        steps = c("prepareSGP", "analyzeSGP", "combineSGP", "outputSGP"),
+        steps = c("prepareSGP", "analyzeSGP", "combineSGP", "visualizeSGP", "outputSGP"),
         sgp.percentiles = TRUE,
         sgp.projections = TRUE,
         sgp.projections.lagged = TRUE,
         sgp.percentiles.baseline = FALSE,
         sgp.projections.baseline = FALSE,
         sgp.projections.lagged.baseline = FALSE,
+	plot.types=c("growthAchievementPlot", "studentGrowthPlot"),
+	sgPlot.demo.report=TRUE,
         parallel.config = parallel.config
 )
 
