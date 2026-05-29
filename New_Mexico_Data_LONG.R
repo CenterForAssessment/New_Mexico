@@ -9,6 +9,7 @@ require(data.table)
 
 ### Load data
 New_Mexico_Data_LONG <- fread("Data/Base_Files/2023-24 AMD Prep SGPs.csv")
+New_Mexico_CSEM_Data <- fread("Data/Base_Files/MSSA-CSEM.csv")
 
 ### Tidy up data
 New_Mexico_Data_LONG[CONTENT_AREA=="MATH", CONTENT_AREA:="MATHEMATICS"]
@@ -56,9 +57,25 @@ New_Mexico_Data_LONG[,SCHOOL_NAME:=paste("School", SCHOOL_NUMBER)]
 
 New_Mexico_Data_LONG[!is.na(SCHOOL_NUMBER), SCHOOL_ENROLLMENT_STATUS:="Enrolled School: Yes"]
 
+### Prep and Merge CSEM data
+setnames(New_Mexico_CSEM_Data, c("CONTENT_AREA", "GRADE", "RAW_SCORE", "SCALE_SCORE_THETA", "SCALE_SCORE", "ACHIEVEMENT_LEVEL", "SCALE_SCORE_THETA_CSEM", "SCALE_SCORE_CSEM"))
+New_Mexico_CSEM_Data[CONTENT_AREA=="MATH", CONTENT_AREA:="MATHEMATICS"]
+New_Mexico_CSEM_Data[,GRADE:=as.character(GRADE)]
+New_Mexico_CSEM_Data[,SCALE_SCORE:=as.numeric(SCALE_SCORE)]
+New_Mexico_CSEM_Data[,ACHIEVEMENT_LEVEL:=NULL]
+New_Mexico_CSEM_Data <- New_Mexico_CSEM_Data[CONTENT_AREA %in% c("ELA", "MATHEMATICS")]
+New_Mexico_CSEM_Data <- New_Mexico_CSEM_Data[,SCALE_SCORE_CSEM_MEAN:=mean(SCALE_SCORE_CSEM), by=c("CONTENT_AREA", "GRADE")]
+for (content_area.iter in c("ELA", "MATHEMATICS")) {
+  for (grade.iter in c("3", "4", "5", "6", "7", "8")) {
+    tmp.data <- unique(New_Mexico_CSEM_Data[CONTENT_AREA==content_area.iter & GRADE==grade.iter], by=c("CONTENT_AREA", "GRADE", "SCALE_SCORE"))
+    tmp.approx.fun <- approxfun(tmp.data$SCALE_SCORE, tmp.data$SCALE_SCORE_CSEM)
+    New_Mexico_Data_LONG[CONTENT_AREA==content_area.iter & GRADE==grade.iter, SCALE_SCORE_CSEM:=tmp.approx.fun(SCALE_SCORE)]
+  }
+}
+
+### Create final data sets
 New_Mexico_Data_LONG_2024 <- New_Mexico_Data_LONG[YEAR=="2024"]
 New_Mexico_Data_LONG <- New_Mexico_Data_LONG[YEAR!="2024"]
-
 
 ### Save results
 save(New_Mexico_Data_LONG, file="Data/New_Mexico_Data_LONG.Rdata")

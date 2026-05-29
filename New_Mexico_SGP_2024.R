@@ -13,7 +13,8 @@ load("Data/New_Mexico_SGP.Rdata")
 load("Data/New_Mexico_Data_LONG_2024.Rdata")
 
 ### Parameters
-parallel.config <- list(BACKEND="PARALLEL", WORKERS=list(PERCENTILES=4, BASELINE_PERCENTILES=4, PROJECTIONS=4, LAGGED_PROJECTIONS=4, SGP_SCALE_SCORE_TARGETS=4))
+#parallel.config <- list(BACKEND="PARALLEL", WORKERS=list(PERCENTILES=4, BASELINE_PERCENTILES=4, PROJECTIONS=4, LAGGED_PROJECTIONS=4, SGP_SCALE_SCORE_TARGETS=4))
+parallel.config <- NULL
 
 ### Run abcSGP
 New_Mexico_SGP <- updateSGP(
